@@ -81,7 +81,7 @@ function clock() {
     ctx.save();
     ctx.rotate((Math.PI / 30) * sec);
     ctx.strokeStyle = '#800000'
-    ctx.fillStyle = 'red'
+    ctx.fillStyle = 'black'
     ctx.lineWidth = 3
     ctx.beginPath();
     ctx.moveTo(-40 , 0)
