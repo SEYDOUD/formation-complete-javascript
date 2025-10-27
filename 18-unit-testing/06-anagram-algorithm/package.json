@@ -1,0 +1,12 @@
+{
+  "name": "06-anagram-algorithm",
+  "version": "1.0.0",
+  "main": "anagram.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
