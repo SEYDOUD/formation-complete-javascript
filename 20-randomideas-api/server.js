@@ -3,6 +3,10 @@ const port = 5000
 
 const app = express()
 
+// Body parser middleware - Allows us to get te http body
+app.use(express.json())
+app.use(express.urlencoded({ extended:false }))
+
 app.get('/' , (req , res) => {
     res.send({message: 'Welcome to the RandomIdeas API' })
 })
