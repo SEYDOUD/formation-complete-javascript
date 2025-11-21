@@ -21,7 +21,7 @@ class AmbientMixer{
             // Render sound cards using our sound data
             this.ui.renderSoundCards(sounds)
 
-            //dd
+            // Initalisation des listeners
             this.setupEventListeners()
 
             // Load all sound files
