@@ -18,6 +18,10 @@ class AmbientMixer{
             // Load all sound files
             this.loadAllSounds()
 
+            // // Try to play rain
+            // this.soundManager.setVolume('rain' , 30)
+            // await this.soundManager.playSound('rain')
+
             this.isInitialized = true
         } catch (error) {
             console.error('Failed to initialized app: ',error)
@@ -39,4 +43,7 @@ class AmbientMixer{
 document.addEventListener('DOMContentLoaded' , ()=>{
     const app = new AmbientMixer()
     app.init()
+
+    // Make app awailable for testing in browser
+    window.app = app
 })
