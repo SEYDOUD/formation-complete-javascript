@@ -158,6 +158,14 @@ class AmbientMixer{
                 }
             })
         }
+
+        // Theme toggle
+        if(this.ui.themeToogle){
+            this.ui.themeToogle.addEventListener('click' , () => {
+                this.ui.toggleTheme()
+            })
+        }
+
     }
 
     // Load all sound files

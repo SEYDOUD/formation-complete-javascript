@@ -235,4 +235,18 @@ export class UI{
         }
     }
 
+    // Togggle theme
+    toggleTheme(){
+        const body = document.body;
+        const icon = this.themeToogle.querySelector('i')
+
+        if(body.classList.contains('light-theme')){
+            body.classList.remove('light-theme')
+            icon.classList.replace('fa-moon' , 'fa-sun')
+        }else{
+            body.classList.add('light-theme')
+            icon.classList.replace('fa-sun' , 'fa-moon')
+        }
+    }
+
 }
