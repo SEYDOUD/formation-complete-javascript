@@ -72,6 +72,13 @@ class AmbientMixer{
             })
         }
 
+        // Handle reset button
+        if(this.ui.resetButton){
+            this.ui.resetButton.addEventListener('click' , () => {
+                this.resetAll()
+            })
+        }
+
         // Save preset button
         const saveButton = document.getElementById('savePreset');
         if(saveButton){
@@ -262,6 +269,22 @@ class AmbientMixer{
         this.soundManager.isPlaying = anySoundsPlaying
         this.ui.updateMainPlayButton(anySoundsPlaying)
 
+    }
+
+
+
+    // Reset everything to default state
+    resetAll(){
+        // Stop all sounds
+        this.soundManager.stopAll()
+
+        // Reset master Volume
+        this.masterVolume = 100
+
+        // Reset UI
+        this.ui.resetUI()
+
+        console.log('All sounds and setting reset');
     }
 
     // Show save preset modal
