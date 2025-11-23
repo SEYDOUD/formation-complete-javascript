@@ -1,6 +1,7 @@
 import { PresetManager } from "./presetManager.js";
 import { sounds , defaultPresets } from "./soundData.js";
 import { SoundManager } from "./soundManager.js";
+import { Timer } from "./timer.js";
 import { UI } from "./ui.js";
 
 class AmbientMixer{
@@ -9,7 +10,10 @@ class AmbientMixer{
         this.soundManager = new SoundManager()
         this.ui = new UI()
         this.presetManager = new PresetManager()
-        this.timer = null
+        this.timer = new Timer(
+            () => this.onTimerComplete(),
+            (minutes , seconds) => this.ui.updateTimerDisplay(minutes , seconds)
+        )
         this.currentSoundState = {}
         this.masterVolume = 100
         this.isInitialized = false
@@ -137,6 +141,20 @@ class AmbientMixer{
             this.ui.modal.addEventListener('click',(e) => {
                 if(e.target === this.ui.modal){
                     this.ui.hideModal()
+                }
+            })
+        }
+
+        // Timer select
+        const timerSelect = document.getElementById('timerSelect')
+        if(timerSelect){
+            timerSelect.addEventListener('change' , (e) => {
+                const minutes = parseInt(e.target.value)
+                if(minutes > 0){
+                    this.timer.start(minutes)
+                    console.log(`Timer Started for ${minutes} minutes`);
+                }else{
+                    this.timer.stop()
                 }
             })
         }
@@ -316,6 +334,12 @@ class AmbientMixer{
         // Reset master Volume
         this.masterVolume = 100
 
+        // Reset timer
+        this.timer.stop()
+        if(this.ui.timerSelect){
+            this.ui.timerSelect.value = '0'
+        }
+
         // Reset active preset
         this.ui.setActivePreset(null)
 
@@ -326,6 +350,7 @@ class AmbientMixer{
 
         // Reset UI
         this.ui.resetUI()
+
     }
 
     // Load a preset config
@@ -437,6 +462,30 @@ class AmbientMixer{
         if(this.presetManager.deletePreset(presetId)){
             this.ui.removeCustomPreset(presetId)
             console.log(`Preset ${presetId} deleted`);
+        }
+    }
+
+    // Timer complete callback
+    onTimerComplete(){
+        // Stop all sounds
+        this.soundManager.pauseAll()
+        this.ui.updateMainPlayButton(false)
+
+        // Update individual buttons
+        sounds.forEach(sound => {
+            this.ui.updateSoundPlayButton(sound.id , false)
+        })
+
+        // Reset timer dropDown
+        const timerSelect = document.getElementById('timerSelect')
+        if(timerSelect){
+            timerSelect.value = '0'
+        }
+
+        // clear and hide timer display
+        if(this.ui.timerDisplay){
+            this.ui.timerDisplay.textContent = ''
+            this.ui.timerDisplay.classList.add('hidden')
         }
     }
 
