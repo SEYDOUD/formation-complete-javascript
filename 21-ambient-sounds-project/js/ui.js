@@ -214,4 +214,12 @@ export class UI{
         }
     }
 
+    // Remove custom preset from UI
+    removeCustomPreset(presetId){
+        const button = document.querySelector(`.custom-preset-btn[data-preset="${presetId}"]`)
+        if(button){
+            button.remove()
+        }
+    }
+
 }
